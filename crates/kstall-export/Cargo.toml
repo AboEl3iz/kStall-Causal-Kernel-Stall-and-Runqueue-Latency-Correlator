@@ -1,0 +1,18 @@
+[package]
+name = "kstall-export"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Export kStall episodes to Chrome Trace JSON, JSON Lines, and Perfetto"
+
+[dependencies]
+kstall-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+
+[[test]]
+name = "export_and_replay_test"
+path = "../../tests/integration/export_and_replay_test.rs"
