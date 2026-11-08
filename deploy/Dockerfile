@@ -1,5 +1,5 @@
 # Multi-stage Dockerfile for kStall
-FROM rust:1.82-bookworm AS builder
+FROM rust:bookworm AS builder
 
 # Install LLVM, Clang, bpftool, and libbpf
 RUN apt-get update && apt-get install -y --no-install-recommends \

@@ -22,9 +22,7 @@ if command -v shellcheck &>/dev/null; then
     echo "    ShellCheck passed."
 else
     # Basic bash syntax check if shellcheck is not installed
-    for f in $(find ci deploy -name "*.sh"); do
-        bash -n "$f"
-    done
+    find ci deploy -name "*.sh" -exec bash -n {} +
     echo "    Bash syntax validation passed (shellcheck not found, checked with bash -n)."
 fi
 
