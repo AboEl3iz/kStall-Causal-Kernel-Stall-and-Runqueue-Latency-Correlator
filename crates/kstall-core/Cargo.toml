@@ -1,0 +1,20 @@
+[package]
+name = "kstall-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Kernel-free causal assembler, data models, and statistical correlation for kStall"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+chrono = { workspace = true }
+
+[dev-dependencies]
+
+[[test]]
+name = "causal_assembly_test"
+path = "../../tests/integration/causal_assembly_test.rs"
