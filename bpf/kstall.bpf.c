@@ -2,6 +2,16 @@
 // Copyright (c) 2026 kStall Developers
 
 #include "vmlinux.h"
+
+#if defined(__TARGET_ARCH_arm64)
+struct user_pt_regs {
+    __u64 regs[31];
+    __u64 sp;
+    __u64 pc;
+    __u64 pstate;
+};
+#endif
+
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
 #include <bpf/bpf_core_read.h>
