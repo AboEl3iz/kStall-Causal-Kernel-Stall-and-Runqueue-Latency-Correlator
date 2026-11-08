@@ -1,0 +1,17 @@
+[package]
+name = "kstall-tui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Ratatui-based interactive TUI for kStall causal stall analysis"
+
+[dependencies]
+kstall-core = { workspace = true }
+kstall-export = { workspace = true }
+chrono = { workspace = true }
+ratatui = { workspace = true }
+crossterm = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
