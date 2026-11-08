@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Release.Name }}-agent
+  labels:
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Chart.Name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Chart.Name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      hostPID: true
+      hostNetwork: false
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      containers:
+        - name: kstall
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - "watch"
+            - "--threshold"
+            - {{ .Values.threshold | quote }}
+            - "--format"
+            - {{ .Values.format | quote }}
+          securityContext:
+            privileged: false
+            capabilities:
+              add:
+                - BPF
+                - PERFMON
+                - SYS_RESOURCE
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: sys-kernel-tracing
+              mountPath: /sys/kernel/tracing
+              readOnly: true
+            - name: sys-kernel-debug
+              mountPath: /sys/kernel/debug
+              readOnly: true
+            - name: sys-kernel-btf
+              mountPath: /sys/kernel/btf
+              readOnly: true
+            - name: sys-fs-cgroup
+              mountPath: /sys/fs/cgroup
+              readOnly: true
+            - name: sys-fs-bpf
+              mountPath: /sys/fs/bpf
+      volumes:
+        - name: sys-kernel-tracing
+          hostPath:
+            path: /sys/kernel/tracing
+        - name: sys-kernel-debug
+          hostPath:
+            path: /sys/kernel/debug
+        - name: sys-kernel-btf
+          hostPath:
+            path: /sys/kernel/btf
+        - name: sys-fs-cgroup
+          hostPath:
+            path: /sys/fs/cgroup
+        - name: sys-fs-bpf
+          hostPath:
+            path: /sys/fs/bpf

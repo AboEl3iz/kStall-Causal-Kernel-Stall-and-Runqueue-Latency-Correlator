@@ -1,0 +1,14 @@
+apiVersion: v2
+name: kstall
+description: A Helm chart for kStall - Causal Kernel-Stall & Runqueue Latency Correlator DaemonSet
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - ebpf
+  - latency
+  - scheduler
+  - performance
+  - troubleshooting
+maintainers:
+  - name: kStall Developers
