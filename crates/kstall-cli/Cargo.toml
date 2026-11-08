@@ -1,0 +1,40 @@
+[package]
+name = "kstall-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "CLI tool and entry point for kStall"
+
+[[bin]]
+name = "kstall"
+path = "src/main.rs"
+
+[dependencies]
+kstall-core = { workspace = true }
+kstall-meta = { workspace = true }
+kstall-bpf = { workspace = true }
+kstall-export = { workspace = true }
+kstall-tui = { workspace = true }
+
+clap = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+libc = { workspace = true }
+
+[[example]]
+name = "latency_probe"
+path = "../../tests/workloads/latency_probe.rs"
+
+[[example]]
+name = "starvation_hog"
+path = "../../tests/workloads/starvation_hog.rs"
+
+[[example]]
+name = "reclaim_pressure"
+path = "../../tests/workloads/reclaim_pressure.rs"
