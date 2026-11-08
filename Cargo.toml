@@ -1,0 +1,57 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/kstall-core",
+    "crates/kstall-meta",
+    "crates/kstall-bpf",
+    "crates/kstall-export",
+    "crates/kstall-tui",
+    "crates/kstall-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["kStall Developers"]
+license = "Apache-2.0 OR GPL-2.0-only"
+repository = "https://github.com/kstall/kstall"
+
+[workspace.dependencies]
+# Internal crates
+kstall-core = { path = "crates/kstall-core" }
+kstall-meta = { path = "crates/kstall-meta" }
+kstall-bpf = { path = "crates/kstall-bpf" }
+kstall-export = { path = "crates/kstall-export" }
+kstall-tui = { path = "crates/kstall-tui" }
+
+# Async & Runtime
+tokio = { version = "1.38", features = ["full"] }
+
+# CLI & Tracing
+clap = { version = "4.5", features = ["derive", "env"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# TUI
+ratatui = "0.28"
+crossterm = "0.28"
+
+# BPF
+libbpf-rs = { version = "0.27", default-features = false }
+libbpf-cargo = { version = "0.27", default-features = false }
+libbpf-sys = { version = "1.7", default-features = false, features = ["novendor"] }
+
+# Utilities
+anyhow = "1.0"
+thiserror = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+libc = "0.2"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true
