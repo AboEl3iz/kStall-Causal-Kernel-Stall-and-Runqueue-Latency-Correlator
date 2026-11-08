@@ -25,7 +25,14 @@ fn main() {
 
     if let Err(err) = SkeletonBuilder::new()
         .source(bpf_src)
-        .clang_args(["-I../../bpf", &target_def, "-O2", "-g"])
+        .clang_args([
+            "-I../../bpf",
+            &target_def,
+            "-O2",
+            "-g",
+            "-Wno-missing-declarations",
+            "-Wno-unknown-attributes",
+        ])
         .build_and_generate(&skel)
     {
         panic!(

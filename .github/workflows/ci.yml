@@ -18,6 +18,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install System Dependencies & eBPF Toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential \
+            clang \
+            llvm \
+            libelf-dev \
+            libbpf-dev \
+            linux-libc-dev \
+            pkg-config \
+            zlib1g-dev \
+            bpftool
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -28,9 +42,8 @@ jobs:
 
       - name: Run Linting Suite
         run: |
-          cargo fmt --all -- --check
-          cargo check --workspace --all-targets
-          cargo clippy --workspace --all-targets -- -D warnings
+          chmod +x ci/*.sh
+          ./ci/lint.sh
 
   test:
     name: Test & Build

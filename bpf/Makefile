@@ -9,12 +9,23 @@ BPF_CFLAGS := -g -O2 -target bpf \
 	-D__TARGET_ARCH_$(ARCH) \
 	-I. \
 	-Wall \
+	-Wno-missing-declarations \
+	-Wno-unknown-attributes \
+	-Wno-pragma-once-outside-header \
+	-Wno-compare-distinct-pointer-types \
 	-Werror
 
 all: kstall.bpf.o kstall.skel.h
 
 vmlinux.h:
-	$(BPFTOOL) btf dump file /sys/kernel/btf/vmlinux format c > $@
+	@if [ -f /sys/kernel/btf/vmlinux ]; then \
+		$(BPFTOOL) btf dump file /sys/kernel/btf/vmlinux format c > $@; \
+	elif [ -f vmlinux.h ]; then \
+		echo "Using existing vmlinux.h"; \
+	else \
+		echo "Error: /sys/kernel/btf/vmlinux not found and vmlinux.h does not exist." >&2; \
+		exit 1; \
+	fi
 
 kstall.bpf.o: kstall.bpf.c kstall.h vmlinux.h
 	$(CLANG) $(BPF_CFLAGS) -c $< -o $@
