@@ -3,7 +3,12 @@
 # kStall Universal Installer Script
 set -euo pipefail
 
-REPO="kstall/kstall"
+REPO="${REPO:-https://github.com/AboEl3iz/kStall-Causal-Kernel-Stall-and-Runqueue-Latency-Correlator.git}"
+REPO_URL="${REPO}"
+[[ "${REPO_URL}" != http* ]] && REPO_URL="https://github.com/${REPO_URL}.git"
+REPO_SLUG="${REPO#*github.com/}"
+REPO_SLUG="${REPO_SLUG%.git}"
+REPO="${REPO_SLUG}"
 BIN_NAME="kstall"
 INSTALL_DIR="${BIN_DIR:-/usr/local/bin}"
 
@@ -61,7 +66,7 @@ else
 
     curl -fsSL "${ARCHIVE_URL}" -o "${TMP_DIR}/kstall.tar.gz" || {
         echo "Failed to download pre-built release binary." >&2
-        echo "Please build from source: 'git clone https://github.com/${REPO} && cd kstall && make all'" >&2
+        echo "Please build from source: 'git clone ${REPO_URL} && cd kstall && make all'" >&2
         exit 1
     }
 

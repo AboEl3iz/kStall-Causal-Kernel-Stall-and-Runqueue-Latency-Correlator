@@ -14,7 +14,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["kStall Developers"]
 license = "Apache-2.0 OR GPL-2.0-only"
-repository = "https://github.com/kstall/kstall"
+repository = "https://github.com/AboEl3iz/kStall-Causal-Kernel-Stall-and-Runqueue-Latency-Correlator.git"
 
 [workspace.dependencies]
 # Internal crates

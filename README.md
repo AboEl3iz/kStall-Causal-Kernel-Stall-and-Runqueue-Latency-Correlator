@@ -187,10 +187,10 @@ kStall relies on modern Linux kernel tracing infrastructure:
 Install the latest pre-compiled release binary directly on any Linux x86_64 or aarch64 system:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/kstall/kstall/master/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AboEl3iz/kStall-Causal-Kernel-Stall-and-Runqueue-Latency-Correlator/master/install.sh | bash
 ```
 
-Alternatively, download official release packages, standalone binaries, and cryptographic SHA-256 checksums from the [GitHub Releases](https://github.com/kstall/kstall/releases) page.
+Alternatively, download official release packages, standalone binaries, and cryptographic SHA-256 checksums from the [GitHub Releases](https://github.com/AboEl3iz/kStall-Causal-Kernel-Stall-and-Runqueue-Latency-Correlator/releases) page.
 
 ### Build Requirements
 
@@ -222,7 +222,7 @@ sudo pacman -S clang llvm libbpf libelf zlib bpf make pkgconf
 Clone the repository and build both BPF objects and userspace binaries:
 
 ```bash
-git clone https://github.com/kstall/kstall.git
+git clone https://github.com/AboEl3iz/kStall-Causal-Kernel-Stall-and-Runqueue-Latency-Correlator.git
 cd kstall
 
 # Build BPF skeleton and all Rust workspace crates
